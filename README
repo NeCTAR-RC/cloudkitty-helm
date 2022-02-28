@@ -1,0 +1,39 @@
+Cloudkitty Helm Chart
+===================
+
+Setup
+-----
+
+Vault
+-----
+You need to create a secret in vault with the following keys
+ * database_connection
+ * keystone_password
+ * transport_url
+ * influxdb_password
+
+Refer to the secret in your values
+
+vault:
+  settings_secret: secret/data/k8s/<namespace>/cloudkitty/settings
+
+
+cloudkitty settings
+-----------------
+ conf:
+   processor:
+     region_name: Other
+     max_workers: 12
+   fetcher:
+     gnocchi:
+       resource_types: instance
+       region_name: Other
+   keystone:
+     auth_url: https://keystone:5000
+     project_name: service
+     username: cloudkitty
+   storage:
+     influxdb:
+       username: cloudkitty
+       database: cloudkitty
+       host: influxdb

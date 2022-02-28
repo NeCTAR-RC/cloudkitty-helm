@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudkitty-processor
+  labels:
+    {{- include "cloudkitty.labels" . | nindent 4 }}
+    app.kubernetes.io/component: cloudkitty-processor
+spec:
+  replicas: {{ .Values.processor.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "cloudkitty.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: cloudkitty-processor
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config-map-etc.yaml") . | sha256sum }}
+        vault.hashicorp.com/role: "{{ .Values.vault.role }}"
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-status: "update"
+        vault.hashicorp.com/agent-inject-secret-secrets.conf: "{{ .Values.vault.settings_secret }}"
+        vault.hashicorp.com/agent-inject-template-secrets.conf: |
+           {{ print "{{- with secret \"" .Values.vault.settings_secret "\" -}}" }}
+           {{ print "[database]" }}
+           {{ print "connection={{ .Data.data.database_connection }}" }}
+           {{ print "[keystone_authtoken]" }}
+           {{ print "password={{ .Data.data.keystone_password }}" }}
+           {{ print "[storage_influxdb]" }}
+           {{ print "password={{ .Data.data.influxdb_password }}" }}
+           {{ print "[DEFAULT]" }}
+           {{ print "transport_url={{ .Data.data.transport_url}}" }}
+           {{ print "{{- end -}}" }}
+      labels:
+        {{- include "cloudkitty.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: cloudkitty-processor
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "cloudkitty.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+      - name: {{ .Chart.Name }}
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+        image: "{{ .Values.processor.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: KOLLA_CONFIG_STRATEGY
+          value: "COPY_ALWAYS"
+        volumeMounts:
+          - name: {{ include "cloudkitty.fullname" . }}-etc
+            mountPath: "/etc/cloudkitty/metrics.yml"
+            subPath: metrics.yml
+          - name: {{ include "cloudkitty.fullname" . }}-etc
+            mountPath: "/etc/cloudkitty/policy.yaml"
+            subPath: policy.yaml
+          - name: {{ include "cloudkitty.fullname" . }}-etc
+            mountPath: "/etc/cloudkitty/cloudkitty.conf"
+            subPath: cloudkitty.conf
+        command:
+        - 'cloudkitty-processor'
+        - '--config-file'
+        - '/etc/cloudkitty/cloudkitty.conf'
+        - '--config-file'
+        - '/vault/secrets/secrets.conf'
+      volumes:
+      - name: {{ include "cloudkitty.fullname" . }}-etc
+        configMap:
+          name: {{ include "cloudkitty.fullname" . }}-etc
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.affinity }}
+      affinity: {{- include "common.tplvalues.render" ( dict "value" .Values.affinity "context" $) | nindent 8 }}
+      {{- else }}
+      affinity:
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "context" $) | nindent 10 }}
+        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

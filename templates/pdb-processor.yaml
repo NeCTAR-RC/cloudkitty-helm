@@ -1,0 +1,15 @@
+{{- if .Values.processor.pdb.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "cloudkitty.fullname" . }}-processor
+  labels:
+    {{- include "cloudkitty.labels" . | nindent 4 }}
+    app.kubernetes.io/component: cloudkitty-processor
+spec:
+  minAvailable: {{ .Values.processor.pdb.minAvailable | default 0 }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ include "cloudkitty.fullname" . }}
+      app.kubernetes.io/component: cloudkitty-processor
+{{- end }}
