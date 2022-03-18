@@ -35,6 +35,7 @@ auth_type = password
 
 [orchestrator]
 max_workers = {{ .Values.conf.processor.max_workers }}
+coordination_url = {{ .Values.conf.processor.coordination_url }}
 
 [oslo_concurrency]
 lock_path = /var/lock/cloudkitty

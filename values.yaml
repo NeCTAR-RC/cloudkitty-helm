@@ -22,6 +22,7 @@ processor:
     enabled: false
     minAvailable: 1
   replicaCount: 1
+  coordination_url: "file:///var/lib/cloudkitty/locks"
 
 conf:
   debug: false
@@ -46,6 +47,9 @@ conf:
 vault:
   role: k8s
   settings_secret: 'path/to/secret/in/vault'
+
+components:
+  redis: false
 
 imagePullSecrets: []
 nameOverride: ""
