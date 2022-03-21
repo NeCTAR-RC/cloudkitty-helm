@@ -32,6 +32,7 @@ username = {{ .Values.conf.keystone.username }}
 user_domain_name = Default
 www_authenticate_uri = {{ .Values.conf.keystone.auth_url }}
 auth_type = password
+service_type = rating
 
 [orchestrator]
 max_workers = {{ .Values.conf.processor.max_workers }}
