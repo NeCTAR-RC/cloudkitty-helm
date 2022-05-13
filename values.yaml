@@ -38,6 +38,7 @@ conf:
     auth_url:
     project_name: service
     username: cloudkitty
+    memcached_servers: []
   storage:
     influxdb:
       username: cloudkitty

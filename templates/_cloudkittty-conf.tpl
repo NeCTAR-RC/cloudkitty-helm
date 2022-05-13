@@ -33,6 +33,9 @@ user_domain_name = Default
 www_authenticate_uri = {{ .Values.conf.keystone.auth_url }}
 auth_type = password
 service_type = rating
+{{- if .Values.conf.keystone.memcached_servers }}
+memcached_servers={{ join "," .Values.conf.keystone.memcached_servers }}
+{{- end }}
 
 [orchestrator]
 max_workers = {{ .Values.conf.processor.max_workers }}
