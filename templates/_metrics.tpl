@@ -47,6 +47,8 @@ metrics:
       - id
       - user_id
       - project_id
+    metadata:
+      - flavor_id
     mutate: NUMBOOL
     extra_args:
       aggregation_method: mean
