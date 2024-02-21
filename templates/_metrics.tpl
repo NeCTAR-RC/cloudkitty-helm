@@ -29,4 +29,26 @@ metrics:
     extra_args:
       aggregation_method: mean
       resource_type: reservation
+  loadbalancer:
+    unit: loadbalancer
+    alt_name: load_balancer
+    groupby:
+      - id
+      - user_id
+      - project_id
+    mutate: NUMBOOL
+    extra_args:
+      aggregation_method: mean
+      resource_type: load_balancer
+  database:
+    unit: database
+    alt_name: database
+    groupby:
+      - id
+      - user_id
+      - project_id
+    mutate: NUMBOOL
+    extra_args:
+      aggregation_method: mean
+      resource_type: database
 {{- end }}
