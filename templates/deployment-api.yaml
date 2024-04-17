@@ -40,6 +40,15 @@ spec:
           - name: http
             containerPort: 8889
             protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: http
+        startupProbe:
+          httpGet:
+            path: /healthcheck
+            port: http
+          initialDelaySeconds: 10
         volumeMounts:
           - name: {{ include "cloudkitty.fullname" . }}-etc
             mountPath: "/etc/cloudkitty/api_paste.ini"
