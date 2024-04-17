@@ -64,6 +64,8 @@ spec:
             subPath: cloudkitty.conf
           - name: {{ include "cloudkitty.fullname" . }}-api
             mountPath: "/var/lib/kolla/config_files/"
+        resources:
+          {{- toYaml .Values.api.resources | nindent 12 }}
       volumes:
       - name: {{ include "cloudkitty.fullname" . }}-etc
         configMap:

@@ -14,6 +14,7 @@ api:
     enabled: false
     minAvailable: 1
   replicaCount: 1
+  resources: {}
 
 processor:
   image:
@@ -22,6 +23,7 @@ processor:
     enabled: false
     minAvailable: 1
   replicaCount: 1
+  resources: {}
   coordination_url: "file:///var/lib/cloudkitty/locks"
 
 conf:

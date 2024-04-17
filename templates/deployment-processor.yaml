@@ -52,6 +52,8 @@ spec:
         - '/etc/cloudkitty/cloudkitty.conf'
         - '--config-file'
         - '/vault/secrets/secrets.conf'
+        resources:
+          {{- toYaml .Values.processor.resources | nindent 12 }}
       volumes:
       - name: {{ include "cloudkitty.fullname" . }}-etc
         configMap:
