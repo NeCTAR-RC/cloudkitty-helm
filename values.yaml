@@ -10,7 +10,7 @@ image:
 api:
   port: 8889
   command:
-    - kolla-httpd-start
+    - kolla_httpd_start
   apache:
     enabled: true
   image:
