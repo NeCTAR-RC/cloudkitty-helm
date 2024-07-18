@@ -77,7 +77,7 @@ job:
   db_sync:
     enabled: true
     command:
-      - cloudkitty-dbsync && cloudkitty-storage-init
+      - cloudkitty-dbsync upgrade && cloudkitty-storage-init
 
 oslo_policy:
 
