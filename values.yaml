@@ -79,7 +79,8 @@ job:
     command:
       - /usr/bin/bash
       - -c
-      - "cloudkitty-dbsync upgrade && cloudkitty-storage-init"
+    args:
+      - "cloudkitty-dbsync upgrade; cloudkitty-storage-init"
 
 oslo_policy:
 
