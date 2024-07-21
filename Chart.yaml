@@ -2,7 +2,7 @@ apiVersion: v2
 name: cloudkitty
 description: A Helm chart for Openstack Cloudkitty
 type: application
-version: 2.0.3
+version: 2.1.0
 appVersion: "20.0.0-10-g7ac42dd-3"
 sources:
   - https://github.com/NeCTAR-RC/cloudkitty-helm.git
@@ -17,5 +17,5 @@ dependencies:
   - bitnami-common
   version: 2.x.x
 - name: nectarlib
-  version: 1.7.2
+  version: 1.7.4
   repository: oci://registry.rc.nectar.org.au/nectar-helm
