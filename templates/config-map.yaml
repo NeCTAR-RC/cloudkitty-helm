@@ -43,6 +43,7 @@ data:
           - flavor_name
           - flavor_id
           - availability_zone
+          - image_ref
         mutate: NUMBOOL
         extra_args:
           aggregation_method: mean
