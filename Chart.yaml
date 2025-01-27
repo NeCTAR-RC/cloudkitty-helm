@@ -9,7 +9,7 @@ sources:
 dependencies:
 - name: common
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 2.29.0
+  version: 2.29.1
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 20.6.3
