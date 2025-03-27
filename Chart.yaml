@@ -15,5 +15,5 @@ dependencies:
   version: 20.11.4
   condition: components.redis
 - name: nectarlib
-  version: 3.0.2
+  version: 3.0.3
   repository: oci://registry.rc.nectar.org.au/nectar-helm
