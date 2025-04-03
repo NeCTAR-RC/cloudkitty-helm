@@ -45,9 +45,11 @@ coordination_url = {{ .Values.conf.processor.coordination_url }}
 lock_path = /var/lock/cloudkitty
 
 [oslo_messaging_rabbit]
-amqp_durable_queues = True
 ssl = True
-rabbit_ha_queues = True
+rabbit_quorum_queue=true
+rabbit_transient_quorum_queue=true
+rabbit_stream_fanout=true
+rabbit_qos_prefetch_count=1
 
 [oslo_policy]
 policy_file = /etc/cloudkitty/policy.yaml
