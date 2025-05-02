@@ -5,6 +5,7 @@ debug = {{ .Values.conf.debug }}
 [collect]
 collector = gnocchi
 metrics_conf = /etc/cloudkitty/metrics.yml
+period = {{ .Values.conf.collect.period }}
 
 [collector_gnocchi]
 region_name = {{ .Values.conf.processor.region_name }}

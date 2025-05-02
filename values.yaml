@@ -90,6 +90,8 @@ conf:
       username: cloudkitty
       database: cloudkitty
       host:
+  collect:
+    period: 3600
 
 vault:
   role: k8s
