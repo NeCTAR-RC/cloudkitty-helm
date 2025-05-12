@@ -12,7 +12,7 @@ dependencies:
   version: 2.30.2
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 20.13.2
+  version: 21.0.2
   condition: components.redis
 - name: nectarlib
   version: 3.1.1
