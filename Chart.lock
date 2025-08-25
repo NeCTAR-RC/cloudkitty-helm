@@ -4,9 +4,9 @@ dependencies:
   version: 2.31.4
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 22.0.4
+  version: 22.0.5
 - name: nectarlib
   repository: oci://registry.rc.nectar.org.au/nectar-helm
   version: 3.1.4
-digest: sha256:3ebaf4ff299cad75d8c4d56d5b8ba3dd31f7105e4d1bc1fd5af2c38517957a16
-generated: "2025-08-20T04:06:31.854833418Z"
+digest: sha256:b5e7949c0703f503048667f81b69613ad772bfa6ca356eeaa1823e809c27f63f
+generated: "2025-08-25T04:06:35.21954536Z"
