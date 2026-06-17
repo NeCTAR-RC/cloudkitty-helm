@@ -9,7 +9,7 @@ sources:
 dependencies:
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 23.2.2
+  version: 27.0.10
   condition: components.redis
 - name: nectarlib
   version: 4.0.2
